@@ -1,0 +1,43 @@
+# .bashrc
+
+# User specific aliases and functions
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+export LCEC_DB=cdvdb1
+export LCEC_USER=lcec
+export LCEC_PWD=lcec
+
+export SITE_USER=content
+export SITE_KEY=ThisIsASecretKey
+
+export EDITOR=vi
+
+export P4EDITOR=$EDITOR
+
+export P4PORT=perforce:1666
+
+export PERL5LIB=~/perforce/lcec/content_tools/lib/perl5/site_perl
+
+export CT=$HOME/perforce/lcec/content_tools
+
+export TNS_ADMIN=$CT/bin
+
+export ANT_HOME=$CT/bin/ant
+
+export JAVA_HOME=$CT/bin/Linux/java
+
+export PERL_HOME=$CT/bin/perl
+
+export PATH=$JAVA_HOME/bin:$PERL_HOME/bin:$HOME/bin:$ANT_HOME/bin:$CT:$PATH
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib
+
+export INCLUDE_PATH=$INCLUDE_PATH:$HOME/include
+
+export ANT_OPTS=-Xmx1536m
+
+export P4EDITOR=vi

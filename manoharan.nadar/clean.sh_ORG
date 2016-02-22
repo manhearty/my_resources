@@ -1,0 +1,64 @@
+#!/bin/bash
+
+#####################################################
+#Author: MP Nadar                                   #
+#Purpose: Clean Up Users home directory             #     
+#Date: 14th Dec 2015                                # 
+#####################################################
+
+#VARIABLES
+DATE=$(date +%Y%m%d)
+
+#2APREVIEW='lcec/2apreview/...#0'
+#2ACONTENT='lcec/2acontent/...#0'
+#CONTN_SRC='lcec/content_source/...#0'
+LOG_DIR="/var/log/chantcleanup"
+DATE_DIR="${LOG_DIR}/${DATE}"
+
+
+#MAIN
+
+mkdir -p $DATE_DIR
+
+   while read line
+   do
+
+    WORKSPACE="${line}-deves4lws02"
+    USR_DIR="${DATE_DIR}/${line}"
+    mkdir -p $USR_DIR
+	
+     if finger | grep $line > /dev/null
+     then
+	echo "User $line logged in. Cannot clean up!" >> ${DATE_DIR}/cannot_cleanup.log
+	continue
+     fi
+
+      #SIZE BEFORE CLEAN UP	
+      #echo -n "before:" 
+      du -sh /home/${line}  >> ${USR_DIR}/cleanup.log
+
+      #passwd -l $line
+      #echo "User $line account locked for clean up"  >>  ${USR_DIR}/cleanup.log
+
+      echo " " >>  ${USR_DIR}/cleanup.log
+      echo "Running clean up" >>  ${USR_DIR}/cleanup.log
+
+      runuser -l $line -c "p4 sync -f //${WORKSPACE}/lcec/2apreview/...#0" >>  ${USR_DIR}/cleanup.log
+      runuser -l $line -c "p4 sync -f //${WORKSPACE}/lcec/2acontent/...#0" >>  ${USR_DIR}/cleanup.log
+      runuser -l $line -c "p4 sync -f //${WORKSPACE}/lcec/content_source/...#0" >>  ${USR_DIR}/cleanup.log
+
+      #SIZE AFTER CLEAN UP
+      #echo -n "after:"
+      echo " " >>  ${USR_DIR}/cleanup.log
+      du -sh /home/${line} >> ${USR_DIR}/cleanup.log
+ 
+
+
+      #CLEAN-UP 30 Days old clean-up log
+      find ${USR_DIR} -name '*.log' -mtime +30 -exec rm {} \;
+
+
+    done < /root/user.txt
+
+
+#END

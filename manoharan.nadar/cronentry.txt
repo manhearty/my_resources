@@ -1,0 +1,4 @@
+[root@deves4lws02 ~]# crontab -l
+05 18 * * 05  /bin/bash /home/manoharan.nadar/clean.sh
+
+
