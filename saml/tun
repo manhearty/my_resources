@@ -1,0 +1,8 @@
+if nc localhost 9124 > /dev/null
+then
+    :
+else
+
+    ssh -L 9124:10.101.2.124:22 -L 9125:10.101.2.125:22 sshtunnel@10.1.102.171 -N &
+fi
+

@@ -1,0 +1,18 @@
+<html>
+<head><title>LRN SAML Metadata Publish</title></head>
+<body>
+<blockquote>
+<table width="90%" border=0>
+<tr>
+   <td align="left" valign="middle"><img src="lrn.gif" border=0></td>
+   <td align="right" valign="middle"><img src="saml.gif"></td>
+ </tr>
+ </table>
+<hr>
+
+
+<form action="http://10.1.107.96/saml/samlsync.cgi" method="get">
+Partner Name: <input type="text" name="partnername"></input><br>
+<input type="radio" name="environ" value="prod" checked="checked">Production<br>
+<input type="submit" name="subbtn" value="Sync">
+<form>
